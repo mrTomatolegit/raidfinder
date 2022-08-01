@@ -7,7 +7,7 @@ Now, thanks to twitch raid finder, you can easily find someone to raid without g
 
 # Installation
 
-Head to the releases page and download the latest version of the program depending on your operating system (tested for windows)
+Head to the [releases page](https://github.com/mrTomatolegit/raid-finder/releases) and download the latest version of the program depending on your operating system (tested for windows)
 
 Move the EXE into a new folder
 
