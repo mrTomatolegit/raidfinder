@@ -1,5 +1,5 @@
 NAME=raidfinder
-VERSION=1.0.0
+VERSION=1.0.1
 
 WINCOMPDIR=bin/${NAME}-${VERSION}_windows
 LINCOMPDIR=bin/${NAME}-${VERSION}_linux
@@ -22,6 +22,7 @@ wincompile:
 	rm -rf ${WINCOMPDIR} ${WINCOMPDIR}.zip
 	mkdir ${WINCOMPDIR}
 	GOOS=windows GOARCH=amd64 go build -o ${WINCOMPDIR}/raidfinder.exe ./cmd/raidfinder/main.go
+	rcedit ${WINCOMPDIR}/raidfinder.exe --set-version-string "ProductName" "${NAME}" --set-file-version "${VERSION}" --set-product-version "${VERSION}" --set-icon ./ico/tombraid.ico
 	touch ${WINCOMPDIR}/raidlist.txt
 	touch ${WINCOMPDIR}/noraidlist.txt
 ifeq ($(OSFLAG),windows)
