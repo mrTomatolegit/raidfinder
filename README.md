@@ -34,6 +34,7 @@ The `noraidlist.txt` file will make the app ignore the streams from the raidlist
 Every list uses the same format, each username to search for must be on a new line
 
 **Example:**
+
 ```
 TimothySoup
 Markiplier
@@ -47,3 +48,10 @@ If you'd like to update the program to a newer version, take the new raidfinder 
 # Contribution
 
 If you'd like to contribute to the project, please fork it and create a pull request
+
+## External Deps
+
+### Windows
+
+-   [RCEdit](https://github.com/electron/rcedit)
+-   [7-Zip](https://www.7-zip.org/download.html)
