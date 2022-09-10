@@ -6,6 +6,7 @@ import (
 	"github.com/mrTomatolegit/raid-finder/internal/ensure"
 	"github.com/mrTomatolegit/raid-finder/internal/twitch"
 	"github.com/mrTomatolegit/raid-finder/internal/util"
+	"github.com/mrTomatolegit/raid-finder/internal/debug"
 	"github.com/nicklaw5/helix/v2"
 )
 
@@ -34,14 +35,14 @@ func main() {
 		return !util.Contains(&noraidlist, e)
 	})
 
+	fmt.Println("Looking for live streams...")
+
 	liveFromRaidListChan := make(chan []helix.Stream)
 	go twitch.GetAllStreamsAsync(client, raidlist, liveFromRaidListChan)
 	liveFromFollowingChan := make(chan []helix.Stream)
 	go twitch.GetAllFollowStreamsAsync(client, streamer.ID, noraidlist, liveFromFollowingChan)
 	liveFromSearchChan := make(chan []helix.Stream)
 	go twitch.GetSameGameStreamsAsync(client, streamer.ID, noraidlist, liveFromSearchChan)
-
-	fmt.Println("Looking for live streams...")
 
 	liveFromRaidlist := <-liveFromRaidListChan
 	liveFromFollowing := <-liveFromFollowingChan
@@ -53,7 +54,11 @@ func main() {
 			fmt.Printf(util.StringifyStream(stream) + "\n")
 		}
 	} else {
-		fmt.Print("\nNo live streamers from raidlist\n")
+		if len(raidlist) == 0 {
+			fmt.Print("\nRaidlist is empty\n")
+		} else {
+			fmt.Print("\nNo live streamers from raidlist\n")
+		}
 	}
 
 	if len(liveFromFollowing) > 0 {
@@ -74,5 +79,7 @@ func main() {
 		fmt.Print("\nNo other live streamers that are playing the same game\n")
 	}
 
-	util.WaitForKeypress()
+	if !debug.Enabled {
+		util.WaitForKeypress()
+	}
 }
